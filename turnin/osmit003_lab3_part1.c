@@ -17,15 +17,29 @@
 int main(void) {
     /* Insert DDR and PORT initializations */
     DDRA = 0x00; PORTA = 0xFF;
+    DDRB = 0x00; PORTB = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
     
     /* Insert your solution below */
-    unsigned char tmpA = 0x00;
-    unsigned char tmpC = 0x00;
     
-    while(1) {
-        tmpA = PINA & 0x0F;
-	}
-	
-	return 1;
+    unsigned char numA;
+    unsigned char numB;
+    unsigned char i;
+    
+    while (1) {
+		numA = 0;
+		numB = 0;
+		
+		for (i = 0; i < 8; i++) {
+			if (((PINA >> i) & 0x01) == 1) {
+				numA++;
+			}
+			
+			if (((PINB >> i) & 0x01) == 1) {
+				numB++;
+			}
+		}
+		PORTC = numA + numB;
+    }
+    return 0;
 }
